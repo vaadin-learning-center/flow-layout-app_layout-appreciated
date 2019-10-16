@@ -5,12 +5,12 @@ import static com.vaadin.flow.component.icon.VaadinIcon.SIGN_OUT;
 import static com.vaadin.flow.component.icon.VaadinIcon.TRENDING_UP;
 import static com.vaadin.flow.component.icon.VaadinIcon.USER;
 
-import com.github.appreciated.app.layout.behaviour.AppLayout;
-import com.github.appreciated.app.layout.behaviour.Behaviour;
-import com.github.appreciated.app.layout.builder.AppLayoutBuilder;
+import com.github.appreciated.app.layout.component.applayout.AppLayout;
+import com.github.appreciated.app.layout.component.applayout.LeftLayouts;
+import com.github.appreciated.app.layout.component.builder.AppLayoutBuilder;
 import com.github.appreciated.app.layout.component.menu.left.builder.LeftAppMenuBuilder;
 import com.github.appreciated.app.layout.component.menu.left.items.LeftClickableItem;
-import com.github.appreciated.app.layout.router.AppLayoutRouterLayout;
+import com.github.appreciated.app.layout.component.router.AppLayoutRouterLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.tutorial.flow.layout.applayout.vaadin.services.SecurityService;
 import com.vaadin.tutorial.flow.layout.applayout.vaadin.views.main.MainView;
@@ -18,9 +18,6 @@ import com.vaadin.tutorial.flow.layout.applayout.vaadin.views.pages.DashboardVie
 import com.vaadin.tutorial.flow.layout.applayout.vaadin.views.pages.ProfileView;
 import com.vaadin.tutorial.flow.layout.applayout.vaadin.views.pages.TrendsView;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.applayout.AbstractAppRouterLayout;
-import com.vaadin.flow.component.applayout.AppLayoutMenu;
-import com.vaadin.flow.component.applayout.AppLayoutMenuItem;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.VaadinSession;
@@ -28,7 +25,7 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 @Theme(Lumo.class)
-public class MainLayout extends AppLayoutRouterLayout {
+public class MainLayout extends AppLayoutRouterLayout<LeftLayouts.LeftResponsiveHybrid> {
 
   public static final  String ITM_DASHBOARD = "mainview.menue.item.dashboard";
   public static final  String ITM_PROFILE   = "mainview.menue.item.profile";
@@ -45,12 +42,11 @@ public class MainLayout extends AppLayoutRouterLayout {
     //app layout specific
     img.setHeight("var(--app-layout-menu-button-height)");
 
-    AppLayout appLayout = AppLayoutBuilder
-        .get(Behaviour.LEFT_RESPONSIVE_HYBRID)
-        .withTitle(getTranslation(TITLE))
-        .withIconComponent(img)
-        .withAppMenu(appMenu())
-        .build();
+    final LeftLayouts.LeftResponsiveHybrid appLayout = AppLayoutBuilder.get(LeftLayouts.LeftResponsiveHybrid.class)
+                                                                   .withTitle(getTranslation(TITLE))
+                                                                   .withIconComponent(img)
+                                                                   .withAppMenu(appMenu())
+                                                                   .build();
 
     init(appLayout);
   }
